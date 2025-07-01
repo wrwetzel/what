@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- 
+    Landing page for What? website.
+    WRW 11 May 2022
+    WRW 5-June-2025 - Revised for Birdland-Qt
+    WRW 20-June-2025 - Revised for What?
+
+    A very short page for links to the documentation and downloads
+-->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<title>What? - (Bill's Hearing Test)</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<meta name="author" content="what.wrwetel.com">
+<meta name="theme-color" content="#f8f8ff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="[What? (Bill's Hearing Test]">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="hearing test">
+
+<!--
+<link rel="canonical" href="[canonical]" id=canonical-link />
+<link rel="manifest" href="[manifest]" id=manifest-link />
+-->
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js'></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+        crossorigin="anonymous"></script>
+
+<link rel="shortcut icon" href="/Images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/Images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="what.css">
+
+</head>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<script>
+
+function loadContentFromUrl(url, id) {
+    fetch(url)
+    .then(response => response.text())
+    .then(html => {
+        document.getElementById( id ).innerHTML = html;
+    })
+    .catch(err => {
+        document.getElementById( id ).innerHTML = "<p>Error loading content.</p>";
+    console.error(err);
+    });
+}
+
+function loadContent(event) {
+    event.preventDefault();
+    const url = event.target.getAttribute("href");
+    loadContentFromUrl(url, 'content' );
+}
+    
+// ------------------------------------------------------------------------------
+
+$(document).ready(function() {
+    loadContentFromUrl( "content.shtml", 'content' ); //  set default preload page here
+    loadContentFromUrl( "download.shtml", 'download' ); //  set default preload page here
+}); // END of: $(document).ready(function() {
+
+function show_md( url ) {
+    $.ajax({
+        url: url,
+        dataType: 'text',
+        type: 'GET',
+        success: function( data, status ) {
+            var t = markdownit({html: false}).render( data );
+            $( '#md-display' ).html( t );
+            $( '#md-display' ).show();
+            $( '#md-display')[0].scrollIntoView();
+        }
+    });
+}
+
+function check_input( str ) {
+    str = str.replace(/\s+/g, '');
+    if( str.length ) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+function check_email( email ) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test( email );
+}
+
+// Needed the following change when moved to dynamic loading of a few pages.
+// The original ran before the contact page was loaded and so did not find the id.
+// $('#contact-submit').click( function() {
+$(document).on('click', '#contact-submit', function() {
+    var err_count = 0;
+
+    err_count += check_input( $("#contact-name").val() );
+    err_count += check_input( $("#contact-email").val() );
+    err_count += check_input( $("#contact-comments").val() );
+
+    if( err_count ) {
+        $("#contact-results").html( "<span style='color: #c00;'>Please complete all fields.</span>" );
+        return;
+    }
+    else {
+        $("#contact-results").html( "Sending message, just a moment." );
+    }
+
+    if( ! check_email( $("#contact-email").val() ) ) {
+        $("#contact-results").html( "<span style='color: #c00;'>Please enter a valid email address.</span>" );
+        return;
+    }
+
+    $.ajax( {           // Think OK in this one, specific case.
+        type: "POST",
+        url: "/contact.php",
+        dataType: "json",
+        data: {
+            name:               $("#contact-name").val(),
+            email:              $("#contact-email").val(),
+            comments:           $("#contact-comments").val(),
+        },
+        success: function( data, status ) {
+            if( data.error ) {
+                $("#contact-results").html( "<span style='color: #c00;'>" + data.error + "</span>" );
+            }
+            else {
+                $("#contact-submit").hide();
+                $("#contact-results").html( "<span style='color: green;'>" + data.text + "</span>" );
+            }
+        },
+        error: function( jqXHR, textStatus, errorThrown ) {
+            var msg = "";
+         // msg += "Response URL: " + jqXHR.responseURL + "<br>";       // Undefined on not found error.
+            msg += "Response Text: " + jqXHR.responseText + "<br>";
+            msg += "Ready State: " + jqXHR.readyState + "<br>";
+            msg += "Status Code: " + jqXHR.status + "<br>";
+            msg += "Status Text: " + textStatus + "<br>";
+            msg += "Error: " + errorThrown + "<br>";
+
+         // $( "#contact-results").html( "<span style='color: #c00;'>" + jqXHR + "<br>" + textStatus + "<br>" + errorThrown + "</span>" );
+            $( "#contact-results").html( "<span style='color: #c00;'>" + msg + "</span>" );
+        }
+    });
+});
+
+</script>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<body>
+
+<h1> <img src=/Images/ear-64.png width=32 style="display:inline;margin: 0;"/> What? - (Bill's Hearing Test)</h1>
+
+<div class=row>
+    <div class=index-column>
+        <a href=/content.shtml onclick="loadContent(event)">Home</a> <br>
+        <a href=/quick-start.html onclick="loadContent(event)">Quick-Start Guide</a> <br>
+        <a href=/contact.html onclick="loadContent(event)">Contact</a> <br>
+    
+    </div>
+    
+    <!--
+    <div class=main-column id=content></div>
+    -->
+    <div class=main-column >
+        <div id=content > </div>
+        <!-- <div id=download > </div> -->
+    </div>
+
+</div>
+
+</body>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+

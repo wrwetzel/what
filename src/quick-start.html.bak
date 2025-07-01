@@ -1,0 +1,111 @@
+<h3>Quick Start</h3>
+<ul>
+<li>Go to a quiet room and put on a pair of headphones.</li>
+<li>Launch What?</li>
+<li>Press Space.</li>
+<li>Press Right-Arrow if you heard a tone, Left-Arrow if not.</li>
+<li>Repeat prior two steps until <i>All done</i> notice appears.
+<li>Press <i>Save</i> to copy the audiogram to a file.
+</ul>
+
+
+<h3>Display</h3>
+<ul>
+<li><b>Indicator Square</b> Green while a tone is playing</li>
+<li><b>Gain</b> The gain (or amplitude) of the current tone in dB. </li>
+<li><b>Pitch</b> The frequency (or pitch) of the current tone in Hz.</li>
+<li><b>Step</b> Shows the progres through the series test frequencies. The position
+    in the series is not affected by clicking in the graph.
+</ul>
+
+<h3>Keyboard</h3>
+
+<ul>
+<li><b>Space / Down-Arrow</b> <i>Play</i> the next tone of the test sequence.
+Repeat the current tone on successive presses until the tone is accepted or rejected.</li>
+
+<li><b>Up-Arrow</b> Repeat the current tone.</li>
+
+<li><b>Left-Arrow</b> Reject the current tone. Increase the gain on the next <i>Play</i>,
+advance to the next frequency when maximum gain reached. Rejected tones are marked with a red dot.</li>
+
+<li><b>Right-Arrow</b> Accept the current tone. Advance to the next frequency at the lowest
+gain on the next <i>Play</i>. Accepted tones are marked with a blue dot
+and are saved for the audiogram. </li>
+
+<li><b>Backspace</b> Backup through the sequence of test tones or tones as placed with a click,
+whichever was the most recent.
+Removes the marker from the graph.</li>
+</ul>
+
+<p>
+You can change your mind between accept or reject any time before playing the next tone in the sequence
+and you can repeat a tone any time before accept or reject.
+You can change your mind after playing the next tone or tones in the sequence with Backspace.
+You can also backup through the most recent series of tones placed with a mouse click with Backspace.
+</p>
+
+<h3>Mouse</h3>
+<ul>
+<li><b>Click</b> in the graph to <i>Play</i> a tone at the indicated frequency and gain.
+    Accept or reject the tone or continue in the test sequence using the keyboard as above.
+    Use this to make adjustments in test-tone gains near the threshold of hearing for finer
+    gain resolution than default 10 dB as used in the test-tone sequence.
+    <p>
+    Mouse clicks snap (are quantized) to the nearest 2 dB gain and .2 octave intervals, the same
+    as the graph grid. With the default
+    test parameters this is generally not the same as the points in the test sequence.
+    </p>
+
+</li>
+</ul>
+
+<h3>Controls</h3>
+<ul>
+    <li><b>Name</b> - Include <i>Name</i> in the title and filename of the audiogram.
+    <li><b>Binaural, Left, Right</b> - Select the output channel for the test.</li>
+    <li><b>Test Tone</b> - Play a brief 1000 Hz tone at 0 dB.</li>
+    <li><b>Save</b> - Save the audiogram shown in the graph to an image file.</li>
+    <li><b>Reset</b> - Clear the graph and reset the test-tone sequence to the beginning.</li>
+    <li><b>Exit</b> - Exit What?</li>
+</ul>
+
+<h3>Menus</h3>
+
+<ul>
+    <li><b>File->Quit</b> Exit What?.
+</ul>
+<ul>
+    <li><b>Parameters->Edit</b> Change the test parameters: start and end
+    frequencies, number of frequency points per octave and number
+    of gain points per 10 dB.
+    The hearing loss range is 0 to 80 dB and is not settable.
+    Changes to test parameters are saved between launches.</li>
+
+    <li><b>Parameters->Show</b> Show the test parameters, frequencies, and gains
+    of the test points.</li>
+
+    <li><b>Parameters->Default</b> Set the test parameters: 125 -> 16,000 Hz, 1 gain point per 10 dB, and
+    4 frequency points/octave.</li>
+</ul>
+<ul>
+    <li><b>Help</b> - Self evident.</li>
+</ul>
+
+
+<h3>The Test Sequence</h3>
+Tones are presented to the user in two independent ways, from a list of tones and gains,
+or as placed with a mouse click in the test graph.  The list of tones and gains is known
+as the <i>Test Sequence</i> and can be viewed using <i>Parameters->Show</i>.  The
+frequencies in the <i>Test Sequence</i> are quantized to specific frequencies as
+determined by the number of points per octave parameter.  The order of presentation is
+randomized at each launch of <i>What?</i> and at each <i>Reset</i>.  The gains in the
+<i>Test Sequence</i> are quantized to specific gains as determined by the number of points
+per 10 dB parameter.  They are presented in order ofincreasing gain until accepted.
+
+<p>
+Tones from the <i>Test Sequence</i> and as placed by clicks are both reported in the
+audiogram. They are independent except when backing up with Backspace. <i>What?</i>    
+has separate history lists for the sequence and clicks and backs up through the
+most recent list, either sequence list or click click.
+</p>

@@ -1,0 +1,21 @@
+    <a id="download">
+    <h2>Download</h2>
+
+    <table class=downloads>
+    <thead>
+    <tr>
+        <th>Platform</th> <th>Link</th> <th>Installation Notes </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <!--#include virtual="download-inc.html" -->
+
+    </tbody>
+    </table>
+    
+    <hr>
+
+    <div id="md-display">
+    </div>
+

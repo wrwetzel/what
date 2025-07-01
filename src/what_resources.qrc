@@ -1,0 +1,11 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+    <file>License.txt</file>
+    <file>quick-start.html</file>
+    <file>Images/ear-horn-640.png</file>
+    <file>Images/ear-64.ico</file>
+    <file>Images/ear-64.png</file>
+</qresource>
+</RCC>
+
